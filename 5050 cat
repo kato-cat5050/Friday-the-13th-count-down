@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>13日の金曜日カウントダウン</title>
+    <style>
+        /* スタイルをカスタマイズする場合はここに追加 */
+    </style>
+</head>
+<body>
+    <h1>13日の金曜日カウントダウン</h1>
+    <div id="countdown"></div>
+
+    <script>
+        function getNextFriday13() {
+            const today = new Date();
+            let nextFriday13 = new Date(today);
+
+            // 13日に設定
+            nextFriday13.setDate(13);
+
+            // 金曜日になるまで日付を進める
+            while (nextFriday13.getDay() !== 5) { // 金曜日は曜日コードで5
+                nextFriday13.setMonth(nextFriday13.getMonth() + 1); // 次の月に進む
+                nextFriday13.setDate(13); // 日付を13日に設定
+            }
+
+            return nextFriday13;
+        }
+
+        function updateCountdown() {
+            const nextFriday13 = getNextFriday13();
+            const today = new Date();
+            const timeDifference = nextFriday13 - today;
+
+            if (timeDifference < 0) {
+                // 13日の金曜日が過去の日付の場合
+                document.getElementById("countdown").textContent = "次の13日の金曜日まで待つ必要はありません！";
+            } else {
+                // カウントダウンの計算
+                const daysUntilNextFriday13 = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                document.getElementById("countdown").textContent = `次の13日の金曜日まであと ${daysUntilNextFriday13} 日`;
+            }
+        }
+
+        // インターバルを設定して定期的にカウントダウンを更新
+        setInterval(updateCountdown, 1000); // 1秒ごとに更新
+
+        // 最初にカウントダウンを表示
+        updateCountdown();
+    </script>
+</body>
+</html>
